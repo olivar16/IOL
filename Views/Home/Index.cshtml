@@ -1,9 +1,30 @@
-@model IOL.NET.models.DashboardElements
+@model IOLDOTNET.Models.DashboardElements
 @{
     ViewData["Title"] = "Home Page";
 }
-<h3>@ViewData["Message"]</h3>
-<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
+
+
+
+<div class="row equal">
+
+      <div class="col-xs-6 col-sm-3">
+         It would take <h3>@ViewData["commuteDuration"]</h3> to get to the office via <h3>@ViewData["commuteVia"]</h3>
+      </div>
+
+      <div class="col-xs-6 col-sm-3">
+        It would take <h3>@ViewData["commuteDuration"]</h3> to get to the office via <h3>@ViewData["commuteVia"]</h3>
+      </div>
+
+      <div class="col-xs-6 col-sm-3">
+       It would take <h3>@ViewData["commuteDuration"]</h3> to get to the office via <h3>@ViewData["commuteVia"]</h3>
+      </div>
+
+      <div class="col-xs-6 col-sm-3">
+       It would take <h3>@ViewData["commuteDuration"]</h3> to get to the office via <h3>@ViewData["commuteVia"]</h3>
+      </div>
+
+    </div>
+<!--<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
     <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
         <li data-target="#myCarousel" data-slide-to="1"></li>
@@ -64,7 +85,7 @@
         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
     </a>
-</div>
+</div>-->
 
 
 

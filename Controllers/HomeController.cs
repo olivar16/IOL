@@ -6,19 +6,28 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using IOL.net.Models;
+using IOLDOTNET.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Linq;
 
-namespace IOL.net.Controllers
+namespace IOLDotNet.Controllers
 {
     public class HomeController : Controller
     {
         DashboardElements  dbe = new DashboardElements();
+        private DashboardElementsDBContext dbc;
+        private GroceryStoreItemContext _GroceryContext ;
+
+        public HomeController(GroceryStoreItemContext gdbc){
+         _GroceryContext = gdbc;
+        }
+
         public IActionResult Index()
         {
             var result = GetCommuteTime();
-            dbe.commute = result; 
+            ViewData["commuteDuration"] = result["duration"]["text"];
+            ViewData["commuteVia"] = result["via"];
             return View(dbe);
         }
 
@@ -38,6 +47,35 @@ namespace IOL.net.Controllers
         public IActionResult Error()
         {
             return View();
+        }
+
+        public async Task<IActionResult> Groceries()
+        {
+            return View(await _GroceryContext.GroceryStoreItem.ToListAsync());
+        }
+
+        [HttpPostAttribute]
+        public IActionResult SaveNewGroceryItem(GroceryStoreItem gsi){
+            gsi.LastUpdated = DateTime.Now;
+            _GroceryContext.GroceryStoreItem.Add(gsi);
+            _GroceryContext.SaveChanges();
+            return RedirectToAction("Groceries");
+        }
+
+        public IActionResult RemoveItem(int itemId){
+            Console.WriteLine("The Grocery item being removed is " + itemId);
+            var item = _GroceryContext.GroceryStoreItem.First(m => m.itemId.Equals(itemId));
+            if (item ==null){
+                Console.WriteLine("Given item is null!");
+            }
+            else{
+                Console.WriteLine("Item is " + item.ToString());
+            }
+            if (item != null){
+                _GroceryContext.GroceryStoreItem.Remove(item);
+            }
+            _GroceryContext.SaveChanges();
+            return RedirectToAction("Groceries");
         }
 
         private JObject GetCommuteTime()

@@ -1,0 +1,23 @@
+@using IOLDOTNET.Models
+@model GroceryStoreItem
+
+@using (Html.BeginForm("SaveNewGroceryItem", "Home", FormMethod.Post)){
+    @Html.Label("Brand"); <br>
+    @Html.TextBoxFor(m => m.Brand) <br>
+    @Html.ValidationMessageFor(m => m.Brand)
+
+    @Html.Label("Store"); <br>
+    @Html.TextBoxFor(m => m.Store) <br>
+    @Html.ValidationMessageFor(m => m.Store)
+
+    @Html.Label("Item"); <br>
+    @Html.TextBoxFor(m => m.Item) <br>
+    @Html.ValidationMessageFor(m => m.Item)
+
+    @Html.Label("Price"); <br>
+    @Html.EditorFor(m => m.Price) <br>
+    @Html.ValidationMessageFor(m => m.Price)
+
+    <br>
+     <button type="submit" class="btn btn-default">submit</button>
+}

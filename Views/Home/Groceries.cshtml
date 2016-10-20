@@ -1,0 +1,59 @@
+@using IOLDOTNET.Models
+@model IEnumerable<IOLDOTNET.Models.GroceryStoreItem>
+@{
+    ViewData["Title"] = "Grocery Store Item records";
+}
+
+<table class="table table-inverse">
+    <thead>
+       <th> <b>@Html.DisplayNameFor(model => model.itemId)</b> </th>
+        <th> <b>@Html.DisplayNameFor(model => model.Brand)</b> </th>
+        <th><b>@Html.DisplayNameFor(model => model.Store)</b> </th>
+        <th> <b>@Html.DisplayNameFor(model => model.Item)</b> </th>
+        <th><b>@Html.DisplayNameFor(model => model.Price)</b> </th>
+        <th> <b>@Html.DisplayNameFor(model => model.LastUpdated)</b> </th>
+    </thead>
+    <tbody>
+@foreach(var item in Model)
+{
+    <tr>
+    <td>@Html.DisplayFor(m => item.itemId)  </td>
+     <td> @Html.DisplayFor(m => item.Brand) </td>
+      <td> @Html.DisplayFor(m => item.Store) </td>
+       <td> @Html.DisplayFor(m => item.Item) </td>
+       <td>  @Html.DisplayFor(m => item.Price) </td>
+       <td>  @Html.DisplayFor(m => item.LastUpdated) @Html.ActionLink("Remove", "RemoveItem", "Home", routeValues: new {itemId = item.itemId}, htmlAttributes: null) </td>
+    </tr>
+}
+    </tbody>
+</table>
+
+<!-- Trigger the modal with a button -->
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add some data!</button>
+
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+     
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"> @DateTime.Now </h4>
+      </div>
+     
+      <div class="modal-body">
+            @{
+                Html.RenderPartial("GroceryForm",new GroceryStoreItem());
+            }
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>

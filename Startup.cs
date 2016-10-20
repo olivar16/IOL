@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using IOL.net.Data;
-using IOL.net.Models;
-using IOL.net.Services;
+using IOLDOTNET.Models;
+using IOLDOTNET.Services;
+using IOLDOTNET.Models;
 
-namespace IOL.net
+namespace IOLDotNet
 {
     public class Startup
     {
@@ -40,12 +40,15 @@ namespace IOL.net
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<IOLDOTNET.Data.ApplicationDbContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddEntityFrameworkStores<IOLDOTNET.Data.ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+            
+            services.AddDbContext<GroceryStoreItemContext>(options =>
+            options.UseSqlite("Filename=./grocery.db"));
 
             services.AddMvc();
 

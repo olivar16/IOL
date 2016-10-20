@@ -1,12 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace IOL.net.Models{
+namespace IOLDOTNET.Models{
 public class DashboardElements{
     public Newtonsoft.Json.Linq.JObject commute { get; set;}
+
 }
 
-public class DashboardElementsDBContext : DbContext{
+public class DashboardElementsDBContext {
 public DbSet<DashboardElements> DashboardData{get; set;}
+
 }
 
 }
